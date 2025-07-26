@@ -6,17 +6,9 @@ require("dotenv").config();
 const amqp = require("amqplib");
 
 async function publishToQueue(data) {
-  const {
-    RABBITMQ_HOST,
-    RABBITMQ_PORT,
-    RABBITMQ_USERNAME,
-    RABBITMQ_PASSWORD,
-    RABBITMQ_QUEUE,
-  } = process.env;
+  const { RABBITMQ_URL, RABBITMQ_QUEUE } = process.env;
 
-  const connectionURL = `amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@${RABBITMQ_HOST}:${RABBITMQ_PORT}`;
-
-  const connection = await amqp.connect(connectionURL);
+  const connection = await amqp.connect(RABBITMQ_URL);
   const channel = await connection.createChannel();
 
   await channel.assertQueue(RABBITMQ_QUEUE, { durable: true });
