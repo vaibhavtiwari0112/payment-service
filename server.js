@@ -11,7 +11,7 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
-app.use("/api/pay", paymentRoutes);
+app.use("/pay", paymentRoutes);
 
 const PORT = process.env.PORT || 5002;
 app.listen(PORT, () => {
